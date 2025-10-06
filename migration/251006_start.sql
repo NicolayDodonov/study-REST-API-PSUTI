@@ -1,12 +1,4 @@
-BEGIN
-
-create table if not exists user_type
-(
-    id   uuid default gen_random_uuid() not null
-    constraint user_type_pk
-    primary key,
-    type text
-    );
+BEGIN;
 
 create table if not exists user_data
 (
@@ -25,9 +17,7 @@ create table if not exists users
     primary key,
     first_name text,
     last_name  text,
-    user_type  uuid
-    constraint users_user_type_id_fk
-    references user_type,
+    user_type  text,
     login      text,
     password   text,
     data       uuid

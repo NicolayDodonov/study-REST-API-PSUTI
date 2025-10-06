@@ -7,6 +7,7 @@ import (
 	"os"
 	"os/signal"
 	"study-REST-API-PSUTI/internal/config"
+	"study-REST-API-PSUTI/internal/storage"
 	"syscall"
 
 	"study-REST-API-PSUTI/internal/handler"
@@ -36,7 +37,7 @@ func main() {
 	}
 
 	// создать обработчик
-	h := handler.New(db, log)
+	h := handler.New(storage.New(db), log)
 	_ = h
 	// расписать роутер и адреса апишки
 	r := chi.NewRouter()
@@ -48,10 +49,11 @@ func main() {
 	r.Use(chimid.Compress(5))               // gzip/deflate с уровнем 5
 
 	r.Route("/api/v1", func(r chi.Router) {
-		r.Post("/login", handler.TODO)
-		r.Get("/MyInfo", handler.TODO)
-		r.Put("/AddInfo", handler.TODO)
-		r.Delete("/DeleteInfo", handler.TODO)
+		r.Post("/login", h.Login)
+		r.Post("/register", h.Register)
+		r.Get("/users", h.GetUser)
+		r.Put("/add_info", h.UpdateUser)
+		r.Delete("/delete_info", h.DeleteUser)
 	})
 
 	srv := http.Server{
