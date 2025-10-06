@@ -46,7 +46,7 @@ paths:
           description: Внутренняя ошибка
   /api/v1/AddInfo:
     put:
-      summary: Получение информации о себе
+      summary: Добавить информацию о себе
       operationId: MyInfo
       requestBody:
         content:
@@ -62,7 +62,7 @@ paths:
           description: Внутренняя ошибка
   /api/v1/DeleteInfo:
     delete:
-      summary: Получение информации о себе
+      summary: Удалить информацию о себе
       operationId: MyInfo
       requestBody:
         content:

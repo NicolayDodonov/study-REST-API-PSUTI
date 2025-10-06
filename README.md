@@ -17,4 +17,5 @@ OpenAPI смотреть [здесь](docs/REST-API-PSUTI-OpenApi.yaml).
 В этом проекте использовались:
 * [Маршрутизатор Chi](https://github.com/go-chi/chi)
 * [Расширение Sqlx](github.com/jmoiron/sqlx)
+* [Конфигуратор Clean Env](github.com/ilyakaznacheev/cleanenv)
 * _список будет дополняться..._

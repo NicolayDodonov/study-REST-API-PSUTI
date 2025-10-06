@@ -1,1 +1,16 @@
-# краткое описание настроек
+log:
+  path: "log/log.txt"
+  level: "Debug"
+http:
+  Host: "http://localhost"
+  port: "8080"
+  timeout: 5s
+  read_timeout: 5s
+  write_timeout: 10s
+  idle_timeout: 120s
+postgres:
+  host: "localhost"
+  port: 5432
+  user: "postgres"
+  password: "postgres"
+  dbname: "study"
