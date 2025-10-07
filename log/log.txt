@@ -1,0 +1,4 @@
+2025-10-07 15:01:39.0544574 +0400 +04 m=+0.175383301 [INF] Listening and serving HTTP on port :8080
+2025-10-07 15:01:42.5494061 +0400 +04 m=+3.670332001 [INF] server shutting down
+2025-10-07 15:10:57.7702646 +0400 +04 m=+0.153018801 [INF] Listening and serving HTTP on port :8080
+2025-10-07 15:12:11.5964639 +0400 +04 m=+73.979218101 [INF] server shutting down

@@ -80,6 +80,7 @@ func (h *Handler) Register(w http.ResponseWriter, r *http.Request) {
 }
 
 // GetUser - получение списка пользователей в системе
+// с учётом агрегирования
 func (h *Handler) GetUser(w http.ResponseWriter, r *http.Request) {
 	// Читаем сообщение
 	var Parameters model.GetUserParams
@@ -89,18 +90,93 @@ func (h *Handler) GetUser(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	// Проверяем
-
 }
 
-// UpdateUser Обновить какие то данные в конкретном агенте по UID
+// UpdateUser Обновить какие то данные
+// в конкретном агенте по UID
+// Обновляются только числовые параметры
 func (h *Handler) UpdateUser(w http.ResponseWriter, r *http.Request) {
+	// считываем входящее сообщение
+	var UserInfo model.UserInfo
+	if err := json.NewDecoder(r.Body).Decode(&UserInfo); err != nil {
+		w.WriteHeader(http.StatusBadRequest)
+		h.logger.Error(err.Error())
+		return
+	}
 
+	// проверяем данные
+	flag, err := h.s.CheckUserByID(UserInfo.Id)
+	if err != nil {
+		w.WriteHeader(http.StatusInternalServerError)
+		h.logger.Error(err.Error())
+		return
+	}
+	if !flag {
+		w.WriteHeader(http.StatusBadRequest)
+		h.logger.Error("user not exist")
+		return
+	}
+	// обновляем пользователя
+	err = h.s.UpdateUserData(&UserInfo)
+	if err != nil {
+		w.WriteHeader(http.StatusInternalServerError)
+		h.logger.Error(err.Error())
+		return
+	}
+
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(http.StatusOK)
+	_ = json.NewEncoder(w).Encode(UserInfo)
+	h.logger.Info("update user success")
 }
 
 // DeleteUser Удалить конкретного пользователя
+// удаляем конкретного пользователя по UID
 func (h *Handler) DeleteUser(w http.ResponseWriter, r *http.Request) {
+	// получаем uid пользователя на удаление и токен пользователя
+	uid := r.URL.Query().Get("uid")
+	token := r.URL.Query().Get("token")
+	// проверяем id на пустоту
+	if uid == "" {
+		w.WriteHeader(http.StatusBadRequest)
+		h.logger.Error("uid is empty")
+		return
+	}
+	// проверяем токен на пустоту
+	if token == "" {
+		w.WriteHeader(http.StatusBadRequest)
+		h.logger.Error("token is empty")
+		return
+	}
+	// проверяем права запрашивающего
+	flag, err := h.s.CheckToken(token)
+	if err != nil {
+		w.WriteHeader(http.StatusInternalServerError)
+		h.logger.Error(err.Error())
+	}
+	if !flag {
+		w.WriteHeader(http.StatusUnauthorized)
+		h.logger.Info("token is invalid")
+	}
 
+	// удаляем пользователя
+	err = h.s.DeleteUser(uid)
+	if err != nil {
+		w.WriteHeader(http.StatusInternalServerError)
+		h.logger.Error(err.Error())
+	}
+
+	// Возвращаем информацию пользователю
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(http.StatusOK)
+	_ = json.NewEncoder(w).Encode(struct {
+		Message string `json:"message"`
+		Uid     string `json:"uid"`
+	}{
+		Message: "User deleted",
+		Uid:     uid,
+	})
+	h.logger.Info("delete user success")
 }
 
 func TODO(w http.ResponseWriter, r *http.Request) {}
