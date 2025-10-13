@@ -2,11 +2,17 @@ package handler
 
 import (
 	"encoding/json"
+	"fmt"
 	"net/http"
 	"study-REST-API-PSUTI/internal/logger"
 	"study-REST-API-PSUTI/internal/model"
 	"study-REST-API-PSUTI/internal/storage"
+	"time"
+
+	"github.com/golang-jwt/jwt/v5"
 )
+
+var key = []byte("I shouldn't store the token here.")
 
 type Handler struct {
 	s      *storage.Storage
@@ -44,7 +50,11 @@ func (h *Handler) Login(w http.ResponseWriter, r *http.Request) {
 	// Создаём ответ
 	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(http.StatusOK)
-	_ = json.NewEncoder(w).Encode(resp)
+	_ = json.NewEncoder(w).Encode(struct {
+		Token string `json:"token"`
+	}{
+		Token: h.generateToken(resp),
+	})
 	h.logger.Info("login success")
 }
 
@@ -75,7 +85,11 @@ func (h *Handler) Register(w http.ResponseWriter, r *http.Request) {
 	// Создаём ответ
 	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(http.StatusCreated)
-	_ = json.NewEncoder(w).Encode(uid)
+	_ = json.NewEncoder(w).Encode(struct {
+		Token string `json:"token"`
+	}{
+		Token: h.generateToken(uid),
+	})
 	h.logger.Info("register success")
 }
 
@@ -188,6 +202,44 @@ func (h *Handler) DeleteUser(w http.ResponseWriter, r *http.Request) {
 		Uid:     uid,
 	})
 	h.logger.Info("delete user success")
+}
+
+// генерация токен строки по uid на 1 час
+func (h *Handler) generateToken(uid string) string {
+	claims := jwt.MapClaims{
+		"uid":  uid,
+		"time": time.Now().Add(time.Hour * time.Duration(1)).Unix(),
+	}
+
+	token := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
+	t, _ := token.SignedString(key)
+	return t
+}
+
+// проверяет токен на валидность
+func (h *Handler) checkToken(tokenString string) (bool, error) {
+	token, err := h.parseToken(tokenString)
+	if err != nil {
+		return false, err
+	}
+	if !token.Valid {
+		return false, nil
+	}
+	return true, nil
+}
+
+// получение токен объекта из токена строки
+func (h *Handler) parseToken(tokenString string) (*jwt.Token, error) {
+	token, err := jwt.Parse(tokenString, func(token *jwt.Token) (interface{}, error) {
+		if _, ok := token.Method.(*jwt.SigningMethodHMAC); !ok {
+			return nil, fmt.Errorf("Unexpected signing method: %v", token.Header["alg"])
+		}
+		return key, nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return token, nil
 }
 
 func TODO(w http.ResponseWriter, r *http.Request) {}
