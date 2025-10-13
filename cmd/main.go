@@ -51,8 +51,8 @@ func main() {
 	r.Route("/api/v1", func(r chi.Router) {
 		r.Post("/login", h.Login)
 		r.Post("/register", h.Register)
-		r.Get("/users", h.GetUser)
-		r.Put("/add_info", h.UpdateUser)
+		r.Get("/get", h.GetUser)
+		r.Put("/update", h.UpdateUser)
 		r.Delete("/delete_info", h.DeleteUser)
 	})
 

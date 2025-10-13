@@ -1,0 +1,505 @@
+{
+	"info": {
+		"_postman_id": "cccd3d89-33b0-4843-bb93-cbf8c3a70a57",
+		"name": "REST API сервер для ПГУТИ",
+		"description": "краткое описание приложения",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "39257221"
+	},
+	"item": [
+		{
+			"name": "api",
+			"item": [
+				{
+					"name": "v1",
+					"item": [
+						{
+							"name": "login",
+							"item": [
+								{
+									"name": "Аутентификация пользователя",
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											},
+											{
+												"key": "Accept",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"login\": \"login\",\n  \"password\": \"password\"\n}",
+											"options": {
+												"raw": {
+													"headerFamily": "json",
+													"language": "json"
+												}
+											}
+										},
+										"url": "{{baseUrl}}/api/v1/login"
+									},
+									"response": [
+										{
+											"name": "Аутентификация пользователя",
+											"originalRequest": {
+												"method": "POST",
+												"header": [
+													{
+														"key": "Content-Type",
+														"value": "application/json"
+													},
+													{
+														"key": "Accept",
+														"value": "application/json"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n  \"login\": \"login\",\n  \"password\": \"password\"\n}",
+													"options": {
+														"raw": {
+															"headerFamily": "json",
+															"language": "json"
+														}
+													}
+												},
+												"url": "{{baseUrl}}/api/v1/login"
+											},
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "application/json",
+													"description": "",
+													"type": "text"
+												}
+											],
+											"cookie": [
+												{
+													"expires": "Invalid Date",
+													"domain": "",
+													"path": ""
+												}
+											],
+											"body": "{\r\n    \"token\": \"cooool_token\"\r\n}"
+										},
+										{
+											"name": "Неавторизирован",
+											"originalRequest": {
+												"method": "POST",
+												"header": [
+													{
+														"key": "Content-Type",
+														"value": "application/json"
+													},
+													{
+														"key": "Accept",
+														"value": "application/json"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n  \"login\": \"login\",\n  \"password\": \"password\"\n}",
+													"options": {
+														"raw": {
+															"headerFamily": "json",
+															"language": "json"
+														}
+													}
+												},
+												"url": "{{baseUrl}}/api/v1/login"
+											},
+											"status": "Unauthorized",
+											"code": 401,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "application/json",
+													"description": "",
+													"type": "text"
+												}
+											],
+											"cookie": [
+												{
+													"expires": "Invalid Date",
+													"domain": "",
+													"path": ""
+												}
+											],
+											"body": "{\n    \"error\": \"unauthorized\"\n}"
+										},
+										{
+											"name": "Ошибка сервера",
+											"originalRequest": {
+												"method": "POST",
+												"header": [
+													{
+														"key": "Content-Type",
+														"value": "application/json"
+													},
+													{
+														"key": "Accept",
+														"value": "application/json"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n  \"login\": \"login\",\n  \"password\": \"password\"\n}",
+													"options": {
+														"raw": {
+															"headerFamily": "json",
+															"language": "json"
+														}
+													}
+												},
+												"url": "{{baseUrl}}/api/v1/login"
+											},
+											"code": 500,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "application/json",
+													"description": "",
+													"type": "text"
+												}
+											],
+											"cookie": [
+												{
+													"expires": "Invalid Date",
+													"domain": "",
+													"path": ""
+												}
+											],
+											"body": "{\n    \"error\": \"server error\"\n}"
+										}
+									]
+								}
+							]
+						},
+						{
+							"name": "register",
+							"item": [
+								{
+									"name": "регистрация пользователя",
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"first_name\": \"Дыма\",\r\n    \"last_name\": \"Мадатов\",\r\n    \"user_type\": \"admin\",\r\n    \"login\": \"user20k\",\r\n    \"password\": \"1111\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "{{base_url}}/api/v1/register"
+									},
+									"response": [
+										{
+											"name": "Ошибка сервера Copy",
+											"originalRequest": {
+												"method": "POST",
+												"header": [
+													{
+														"key": "Content-Type",
+														"value": "application/json"
+													},
+													{
+														"key": "Accept",
+														"value": "application/json"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n  \"login\": \"login\",\n  \"password\": \"password\"\n}",
+													"options": {
+														"raw": {
+															"headerFamily": "json",
+															"language": "json"
+														}
+													}
+												},
+												"url": "{{baseUrl}}/api/v1/login"
+											},
+											"code": 500,
+											"_postman_previewlanguage": "",
+											"header": [],
+											"cookie": [
+												{
+													"expires": "Invalid Date",
+													"domain": "",
+													"path": ""
+												}
+											],
+											"body": "{\r\n    \"error\": \"server error\"\r\n}"
+										}
+									]
+								}
+							]
+						},
+						{
+							"name": "get",
+							"item": [
+								{
+									"name": "получить список пользователей",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "GET",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"large_height\":0,\r\n    \"large_weight\":0,\r\n    \"large_age\": 0,\r\n    \"gender\": \"man\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": ""
+									},
+									"response": [
+										{
+											"name": "Ошибка сервера",
+											"originalRequest": {
+												"method": "POST",
+												"header": [
+													{
+														"key": "Content-Type",
+														"value": "application/json"
+													},
+													{
+														"key": "Accept",
+														"value": "application/json"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n  \"login\": \"login\",\n  \"password\": \"password\"\n}",
+													"options": {
+														"raw": {
+															"headerFamily": "json",
+															"language": "json"
+														}
+													}
+												},
+												"url": "{{baseUrl}}/api/v1/login"
+											},
+											"code": 500,
+											"_postman_previewlanguage": "",
+											"header": [],
+											"cookie": [
+												{
+													"expires": "Invalid Date",
+													"domain": "",
+													"path": ""
+												}
+											],
+											"body": "{\r\n    \"error\": \"server error\"\r\n}"
+										}
+									]
+								}
+							]
+						},
+						{
+							"name": "update",
+							"item": [
+								{
+									"name": "обновить информацию о пользователе",
+									"request": {
+										"method": "PUT",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"id\": \"123\",\r\n    \"height\": 100,\r\n    \"weight\": 100,\r\n    \"age\": 100,\r\n    \"gender\": \"man\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "{{base_url}}/api/v1/update"
+									},
+									"response": [
+										{
+											"name": "Ошибка сервера",
+											"originalRequest": {
+												"method": "POST",
+												"header": [
+													{
+														"key": "Content-Type",
+														"value": "application/json"
+													},
+													{
+														"key": "Accept",
+														"value": "application/json"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n  \"login\": \"login\",\n  \"password\": \"password\"\n}",
+													"options": {
+														"raw": {
+															"headerFamily": "json",
+															"language": "json"
+														}
+													}
+												},
+												"url": "{{baseUrl}}/api/v1/login"
+											},
+											"code": 500,
+											"_postman_previewlanguage": "",
+											"header": [],
+											"cookie": [
+												{
+													"expires": "Invalid Date",
+													"domain": "",
+													"path": ""
+												}
+											],
+											"body": "{\r\n    \"error\": \"server error\"\r\n}"
+										}
+									]
+								}
+							]
+						},
+						{
+							"name": "delete_info",
+							"item": [
+								{
+									"name": "удалить пользователя",
+									"request": {
+										"method": "DELETE",
+										"header": [
+											{
+												"key": "uid",
+												"value": "0b4ab605-ae63-49c6-8907-fdef88854683",
+												"type": "text",
+												"disabled": true
+											}
+										],
+										"body": {
+											"mode": "formdata",
+											"formdata": [
+												{
+													"key": "uid",
+													"value": "0b4ab605-ae63-49c6-8907-fdef88854683",
+													"type": "text",
+													"disabled": true
+												}
+											]
+										},
+										"url": {
+											"raw": "{{base_url}}/api/v1/delete_info?uid=0b4ab605-ae63-49c6-8907-fdef88854683&token=643cad08-dbb1-478f-ad97-e543d47923af",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"api",
+												"v1",
+												"delete_info"
+											],
+											"query": [
+												{
+													"key": "uid",
+													"value": "0b4ab605-ae63-49c6-8907-fdef88854683"
+												},
+												{
+													"key": "token",
+													"value": "643cad08-dbb1-478f-ad97-e543d47923af"
+												}
+											]
+										}
+									},
+									"response": [
+										{
+											"name": "Ошибка сервера",
+											"originalRequest": {
+												"method": "POST",
+												"header": [
+													{
+														"key": "Content-Type",
+														"value": "application/json"
+													},
+													{
+														"key": "Accept",
+														"value": "application/json"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n  \"login\": \"login\",\n  \"password\": \"password\"\n}",
+													"options": {
+														"raw": {
+															"headerFamily": "json",
+															"language": "json"
+														}
+													}
+												},
+												"url": "{{baseUrl}}/api/v1/login"
+											},
+											"code": 500,
+											"_postman_previewlanguage": "",
+											"header": [],
+											"cookie": [
+												{
+													"expires": "Invalid Date",
+													"domain": "",
+													"path": ""
+												}
+											],
+											"body": "{\r\n    \"error\": \"server error\"\r\n}"
+										}
+									]
+								}
+							]
+						}
+					]
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "id",
+			"value": "1"
+		},
+		{
+			"key": "base_url",
+			"value": "https://template.postman-echo.com"
+		},
+		{
+			"key": "baseUrl",
+			"value": "",
+			"type": "default"
+		}
+	]
+}

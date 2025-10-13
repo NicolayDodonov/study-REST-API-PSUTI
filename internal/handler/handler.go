@@ -90,6 +90,17 @@ func (h *Handler) GetUser(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	data, err := h.s.GetUsers()
+	if err != nil {
+		w.WriteHeader(http.StatusInternalServerError)
+		h.logger.Error(err.Error())
+		return
+	}
+
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(http.StatusOK)
+	_ = json.NewEncoder(w).Encode(data)
+	h.logger.Info("get user success")
 }
 
 // UpdateUser Обновить какие то данные
