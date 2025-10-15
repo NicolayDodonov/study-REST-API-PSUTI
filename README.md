@@ -19,4 +19,6 @@ OpenAPI смотреть [здесь](docs/REST-API-PSUTI-OpenApi.json).
 * [Расширение Sqlx](github.com/jmoiron/sqlx)
 * [Конфигуратор Clean Env](github.com/ilyakaznacheev/cleanenv)
 * [Генератор UID от Google](github.com/google/uuid)
+* [Библиотека для работы с JWT](https://github.com/golang-jwt/jwt)
 * _список будет дополняться..._
+* 
