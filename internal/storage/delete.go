@@ -3,7 +3,8 @@ package storage
 import "database/sql"
 
 func (s *Storage) DeleteUser(uid string) error {
-	_, err := s.db.Exec("DELETE FROM users WHERE id=?", uid)
+	_, err := s.db.Exec(`
+	DELETE FROM users WHERE id = $1`, uid)
 	if err != nil {
 		return err
 	}
@@ -26,7 +27,7 @@ func (s *Storage) CheckUserRoot(uid string) (bool, error) {
 		return false, err
 	}
 	// проверяем его user_type
-	if userInfo.UserType == "ADMIN" {
+	if userInfo.UserType == "admin" {
 		return true, nil
 	} else {
 		return false, nil

@@ -168,37 +168,27 @@ func (h *Handler) UpdateUser(w http.ResponseWriter, r *http.Request) {
 func (h *Handler) DeleteUser(w http.ResponseWriter, r *http.Request) {
 	// получаем uid пользователя на удаление и токен пользователя
 	uid := r.URL.Query().Get("delete_uid")
-	user := r.URL.Query().Get("user_uid")
-	token := r.URL.Query().Get("token")
+	tokenString := r.URL.Query().Get("token")
 	// проверяем id на пустоту
 	if uid == "" {
 		w.WriteHeader(http.StatusBadRequest)
 		h.logger.Error("uid is empty")
 		return
 	}
-	// проверяем id на пустоту
-	if user == "" {
-		w.WriteHeader(http.StatusBadRequest)
-		h.logger.Error("user_uid is empty")
-		return
-	}
-	f, _ := h.checkToken(token)
-	if !f {
-		w.WriteHeader(http.StatusBadRequest)
-		h.logger.Error("token is invalid. token:" + token)
-		return
-	}
-
-	// проверяем права запрашивающего
-	flag, err := h.s.CheckUserRoot(user)
+	// получаем юзеа, что удаляет
+	t, err := jwt.Parse(tokenString, nil)
+	id := t.Claims.(jwt.MapClaims)["uid"]
+	// проверяем его права
+	root, err := h.s.CheckUserRoot(id.(string))
 	if err != nil {
 		w.WriteHeader(http.StatusInternalServerError)
 		h.logger.Error(err.Error())
 		return
 	}
-	if !flag {
-		w.WriteHeader(http.StatusUnauthorized)
-		h.logger.Info("token is invalid")
+	if !root {
+		w.WriteHeader(http.StatusBadRequest)
+		h.logger.Error("user not authorized")
+		return
 	}
 
 	// удаляем пользователя
