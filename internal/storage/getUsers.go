@@ -10,9 +10,9 @@ func (s *Storage) GetUsers(p model.GetUserParams) ([]model.UserInfo, error) {
 	err := s.db.Select(&users, `
 		SELECT * FROM users 
 		         WHERE 
-		             height > $1 AND
-		             weight > $2 AND
-		             age > $3`,
+		             height >= $1 AND
+		             weight >= $2 AND
+		             age >= $3`,
 		p.LargeHeight,
 		p.LargeWeight,
 		p.LargeAge)

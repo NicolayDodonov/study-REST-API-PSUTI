@@ -179,3 +179,15 @@
 2025-10-15 17:51:59.4413694 +0400 +04 m=+15.063822001 [INF] delete user success
 2025-10-15 17:52:35.6331219 +0400 +04 m=+51.255574501 [INF] delete user success
 2025-10-15 17:52:43.3335049 +0400 +04 m=+58.955957501 [INF] server shutting down
+2025-10-15 18:02:09.8493487 +0400 +04 m=+0.044256601 [INF] Listening and serving HTTP on port :8080
+2025-10-15 18:02:11.5323953 +0400 +04 m=+1.727303201 [ERR] sql: Scan error on column index 9, name "sex": converting NULL to string is unsupported
+2025-10-15 18:05:55.7128625 +0400 +04 m=+225.907770401 [INF] server shutting down
+2025-10-15 18:05:56.0036852 +0400 +04 m=+0.041634401 [INF] Listening and serving HTTP on port :8080
+2025-10-15 18:06:00.868197 +0400 +04 m=+4.906146201 [ERR] sql: Scan error on column index 9, name "sex": converting NULL to string is unsupported
+2025-10-15 18:08:47.8367469 +0400 +04 m=+171.874696101 [INF] server shutting down
+2025-10-15 18:08:48.1429558 +0400 +04 m=+0.044004901 [INF] Listening and serving HTTP on port :8080
+2025-10-15 18:08:55.1131378 +0400 +04 m=+7.014186901 [INF] get user success
+2025-10-15 18:09:23.6745459 +0400 +04 m=+35.575595001 [INF] server shutting down
+2025-10-15 18:09:24.4140296 +0400 +04 m=+0.045939601 [INF] Listening and serving HTTP on port :8080
+2025-10-15 18:09:25.3087866 +0400 +04 m=+0.940696601 [INF] get user success
+2025-10-15 18:09:35.5612845 +0400 +04 m=+11.193194501 [INF] server shutting down
