@@ -104,7 +104,7 @@ func (h *Handler) GetUser(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	data, err := h.s.GetUsers()
+	data, err := h.s.GetUsers(Parameters)
 	if err != nil {
 		w.WriteHeader(http.StatusInternalServerError)
 		h.logger.Error(err.Error())
@@ -126,6 +126,14 @@ func (h *Handler) UpdateUser(w http.ResponseWriter, r *http.Request) {
 	if err := json.NewDecoder(r.Body).Decode(&UserInfo); err != nil {
 		w.WriteHeader(http.StatusBadRequest)
 		h.logger.Error(err.Error())
+		return
+	}
+
+	token := r.URL.Query().Get("token")
+	f, _ := h.checkToken(token)
+	if !f {
+		w.WriteHeader(http.StatusBadRequest)
+		h.logger.Error("token is invalid. token:" + token)
 		return
 	}
 
