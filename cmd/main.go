@@ -51,10 +51,11 @@ func main() {
 	r.Route("/api/v1", func(r chi.Router) {
 		r.Post("/login", h.Login)
 		r.Post("/register", h.Register)
-		r.Get("/get", h.GetUser)
+		r.Post("/getUsers", h.GetUser)
 		r.Put("/update", h.UpdateUser)
 		r.Delete("/delete_info", h.DeleteUser)
 	})
+	r.Handle("/", http.FileServer(http.Dir("./web")))
 
 	srv := http.Server{
 		Addr:         cnf.HTTP.Host + ":" + cnf.HTTP.Port,
