@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Поиск пользователей</title>
+</head>
+<body>
+<h1>Поиск пользователей</h1>
+<form id="searchForm">
+    <label for="height">Минимальный рост:</label>
+    <input type="number" id="height" name="large_height" required>
+    <br>
+
+    <label for="weight">Минимальный вес:</label>
+    <input type="number" id="weight" name="large_weight" required>
+    <br>
+
+    <label for="age">Минимальный возраст:</label>
+    <input type="number" id="age" name="large_age" required>
+    <br>
+
+    <input type="submit" value="Найти пользователей">
+</form>
+
+<h2>Результаты:</h2>
+<pre id="results"></pre>
+
+<script>
+    document.getElementById('searchForm').addEventListener('submit', function(event) {
+        event.preventDefault(); // Предотвращаем стандартное поведение формы
+
+        // Собираем данные из формы
+        const data = {
+            large_height: parseInt(document.getElementById('height').value),
+            large_weight: parseInt(document.getElementById('weight').value),
+            large_age: parseInt(document.getElementById('age').value)
+        };
+
+        // Отправляем данные на сервер
+        fetch('http://localhost:8080/api/v1/get', {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        })
+            .then(response => response.json())
+            .then(result => {
+                // Отображаем результат
+                document.getElementById('results').textContent = JSON.stringify(result, null, 2);
+            })
+            .catch(error => {
+                console.error('Ошибка:', error);
+                document.getElementById('results').textContent = 'Произошла ошибка при получении данных.';
+            });
+    });
+</script>
+</body>
+</html>
