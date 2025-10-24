@@ -20,5 +20,6 @@ OpenAPI смотреть [здесь](docs/REST-API-PSUTI-OpenApi.json).
 * [Конфигуратор Clean Env](github.com/ilyakaznacheev/cleanenv)
 * [Генератор UID от Google](github.com/google/uuid)
 * [Библиотека для работы с JWT](https://github.com/golang-jwt/jwt)
+* [Драйвер для работы с MongoDB](https://github.com/mongodb/mongo-go-driver)
 * _список будет дополняться..._
 * 

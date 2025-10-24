@@ -6,6 +6,7 @@ type Config struct {
 	Log      *Log      `yaml:"log"`
 	HTTP     *Http     `yaml:"http"`
 	Postgres *Postgres `yaml:"postgres"`
+	Mongo    *Mongo    `yaml:"mongo"`
 }
 type Log struct {
 	Path  string `yaml:"path"`
@@ -25,6 +26,14 @@ type Postgres struct {
 	Host     string `yaml:"host"`
 	Port     int    `yaml:"port"`
 	Username string `yaml:"user"`
+	Password string `yaml:"password"`
+	Database string `yaml:"dbname"`
+}
+
+type Mongo struct {
+	Host     string `yaml:"host"`
+	Port     int    `yaml:"port"`
+	Username string `yaml:"username"`
 	Password string `yaml:"password"`
 	Database string `yaml:"dbname"`
 }

@@ -32,3 +32,10 @@ func (p Postgres) DSN() string {
 		p.Host, p.Port, p.Username, p.Password, p.Database, "disable",
 	)
 }
+
+func (m Mongo) DNS() string {
+	return fmt.Sprintf(
+		"mongodb://%s:%d",
+		m.Host, m.Port,
+	)
+}

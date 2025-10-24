@@ -80,6 +80,7 @@ func (logger *Logger) Error(msg string) {
 func (logger *Logger) Fatal(msg string) {
 	if logger.level <= ErrorLevel {
 		t := time.Now()
+		fmt.Println(t.String() + " " + Fatal + msg + "\n")
 		_, _ = io.WriteString(logger.file, t.String()+" "+Fatal+msg+"\n")
 		os.Exit(1)
 	}

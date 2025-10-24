@@ -3,6 +3,7 @@ package handler
 import (
 	"encoding/json"
 	"fmt"
+	"go.mongodb.org/mongo-driver/mongo"
 	"net/http"
 	"study-REST-API-PSUTI/internal/logger"
 	"study-REST-API-PSUTI/internal/model"
@@ -16,11 +17,12 @@ var key = []byte("I shouldn't store the token here.")
 
 type Handler struct {
 	s      *storage.Storage
+	m      *mongo.Database
 	logger *logger.Logger
 }
 
-func New(s *storage.Storage, logger *logger.Logger) *Handler {
-	return &Handler{s: s, logger: logger}
+func New(s *storage.Storage, m *mongo.Database, logger *logger.Logger) *Handler {
+	return &Handler{s: s, m: m, logger: logger}
 }
 
 func (h *Handler) Login(w http.ResponseWriter, r *http.Request) {

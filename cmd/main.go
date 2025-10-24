@@ -3,6 +3,8 @@ package main
 import (
 	"context"
 	"fmt"
+	"go.mongodb.org/mongo-driver/mongo"
+	"go.mongodb.org/mongo-driver/mongo/options"
 	"net/http"
 	"os"
 	"os/signal"
@@ -36,8 +38,18 @@ func main() {
 		log.Fatal(err.Error())
 	}
 
+	mongoDB, err := mongo.NewClient(options.Client().ApplyURI(cnf.Mongo.DNS()))
+	if err != nil {
+		log.Fatal(err.Error())
+	}
+	err = mongoDB.Connect(context.TODO())
+	if err != nil {
+		log.Fatal(err.Error())
+	}
+	db2 := mongoDB.Database(cnf.Mongo.Database)
+
 	// создать обработчик
-	h := handler.New(storage.New(db), log)
+	h := handler.New(storage.New(db), db2, log)
 	_ = h
 	// расписать роутер и адреса апишки
 	r := chi.NewRouter()
